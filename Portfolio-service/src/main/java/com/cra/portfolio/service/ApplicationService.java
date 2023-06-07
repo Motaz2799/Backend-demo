@@ -63,10 +63,12 @@ public class ApplicationService {
     //get by name id ... only if not archived !!!
     public ApplicationResponse createApplication(ApplicationRequest applicationRequest) {
         LocalDateTime created = LocalDateTime.now();
+        Optional<Assessment> assessment=assessmentRepository.findById(1);
         Application application = Application.builder()
                 .appName(applicationRequest.getAppName())
                 .appDescription(applicationRequest.getAppDescription())
                 .createdAt(created)
+                .assessment(assessment.get())
                 .build();
         applicationRepository.save(application);
         log.info("application {} created successfully", application.getId());
